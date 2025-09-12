@@ -1,0 +1,112 @@
+/* Contenedor principal del dashboard */
+.dashboard-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Título de bienvenida */
+.dashboard-container .nombre {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Tarjetas de información */
+.dashboard-container .card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.dashboard-container .card h3 {
+    color: #3498db;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.dashboard-container .card p {
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+/* Tarjetas de celulares recientes */
+.recent-celulares-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.recent-celulares-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.celular-card {
+    flex: 1 1 calc(25% - 20px);
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    min-width: 200px;
+}
+
+.celular-card h4 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.celular-card p {
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Acciones rápidas */
+.quick-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.quick-actions a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.quick-actions a:hover {
+    background: #e9ecef;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .celular-card {
+        flex: 1 1 calc(50% - 20px);
+    }
+}
+
+@media (max-width: 480px) {
+    .celular-card {
+        flex: 1 1 100%;
+    }
+}

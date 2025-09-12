@@ -1,0 +1,19 @@
+# .htaccess corregido para APIDOCENTES
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /APIDOCENTES/
+
+    # Permitir acceso directo a archivos CSS, JS, imágenes
+    RewriteCond %{REQUEST_URI} \.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf)$ [NC]
+    RewriteRule . - [L]
+
+    # Permitir acceso directo a archivos PHP específicos
+    RewriteCond %{REQUEST_URI} ^/APIDOCENTES/(views|public|controllers)/ [NC]
+    RewriteRule . - [L]
+
+    # Redirigir SOLO rutas que no existen físicamente y no son archivos PHP
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} !\.(php)$ [NC]
+    RewriteRule ^(.*)$ index.php [L]
+</IfModule>

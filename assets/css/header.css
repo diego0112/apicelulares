@@ -1,0 +1,146 @@
+ :root {
+      --sidebar-width: 260px;
+      --sidebar-bg: #1e293b;         /* azul gris oscuro */
+      --sidebar-text: #e2e8f0;       /* gris claro */
+      --sidebar-hover: #334155;      /* hover más claro */
+      --primary-color: #3b82f6;      /* azul vivo */
+      --transition-speed: 0.3s;
+      --font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-family);
+      background: #f8fafc;
+      color: #1e293b;
+    }
+
+    /* Menú lateral */
+    .sidebar {
+      width: var(--sidebar-width);
+      background: var(--sidebar-bg);
+      color: var(--sidebar-text);
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      transform: translateX(-100%);
+      transition: transform var(--transition-speed) ease;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar.active {
+      transform: translateX(0);
+    }
+
+    .sidebar-header {
+      padding: 25px 20px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .sidebar-header h1 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin: 0;
+      color: #f1f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+      padding: 20px 0;
+      margin: 0;
+    }
+
+    .sidebar-menu li a {
+      display: flex;
+      align-items: center;
+      padding: 14px 25px;
+      color: var(--sidebar-text);
+      text-decoration: none;
+      transition: background-color var(--transition-speed), padding-left var(--transition-speed);
+      font-size: 0.95rem;
+    }
+
+    .sidebar-menu li a i {
+      margin-right: 12px;
+      font-size: 1.1rem;
+      opacity: 0.8;
+    }
+
+    .sidebar-menu li a:hover {
+      background: var(--sidebar-hover);
+      padding-left: 30px;
+    }
+
+    /* Overlay móvil */
+    .sidebar-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition-speed);
+    }
+
+    .sidebar-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* Botón toggle móvil */
+    .sidebar-toggle {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1001;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      transition: background var(--transition-speed);
+    }
+
+    .sidebar-toggle:hover {
+      background: #2563eb;
+    }
+
+    /* Contenido principal */
+    .main-content {
+      margin-left: 0;
+      padding: 30px;
+      transition: margin-left var(--transition-speed);
+    }
+
+    body.sidebar-open .main-content {
+      margin-left: var(--sidebar-width);
+    }
+
+    /* Escritorio */
+    @media (min-width: 768px) {
+      .sidebar {
+        transform: translateX(0);
+      }
+      .main-content {
+        margin-left: var(--sidebar-width);
+      }
+      .sidebar-toggle {
+        display: none;
+      }
+    }
