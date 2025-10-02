@@ -16,6 +16,11 @@
             <li><a href="<?php echo BASE_URL; ?>views/dashboard.php"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
             <li><a href="<?php echo BASE_URL; ?>views/celulares_list.php"><i class="fas fa-mobile-alt"></i> Celulares</a></li>
             <li><a href="<?php echo BASE_URL; ?>views/usuarios_list.php"><i class="fas fa-users-cog"></i> Gestionar Usuarios</a></li>
+            
+            <li><a href="<?php echo BASE_URL; ?>views/clientes_list.php"><i class="fas fa-users"></i> Ver Todos los clientes</a></li>
+            <li><a href="<?php echo BASE_URL; ?>views/tokens_list.php"><i class="fas fa-key"></i> Ver Todos los tokens</a></li>
+            
+           
             <li><a href="<?php echo BASE_URL; ?>public/index.php?action=logout"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
         </ul>
     </div>

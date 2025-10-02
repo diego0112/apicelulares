@@ -193,6 +193,12 @@ require_once __DIR__ . '/include/header.php';
                 <a href="<?php echo BASE_URL; ?>views/celular_form.php">
                     <i class="fas fa-plus-circle"></i> Agregar Nuevo Celular
                 </a>
+                <a href="<?php echo BASE_URL; ?>views/clientes_list.php">
+                    <i class="fas fa-users"></i> Ver Todos los clientes
+                </a>
+                <a href="<?php echo BASE_URL; ?>views/tokens_list.php">
+                    <i class="fas fa-key"></i> Ver Todos los tokens
+                </a>
             </div>
         </div>
     </div>

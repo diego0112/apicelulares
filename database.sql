@@ -82,6 +82,38 @@ CREATE TABLE `usuarios` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
+
+--TABLAS ADICIONALES PARA LAS APIS --
+-- Tabla Client_API
+CREATE TABLE Client_API (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    RUC VARCHAR(11) NOT NULL,
+    Razon_Social VARCHAR(255) NOT NULL,
+    Telefono VARCHAR(20),
+    Correo VARCHAR(100),
+    Fecha_Registro DATE NOT NULL,
+    Estado ENUM('ACTIVO', 'INACTIVO') DEFAULT 'ACTIVO'
+);
+
+-- Tabla Tokens
+CREATE TABLE Tokens (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    id_client_API INT NOT NULL,
+    Token VARCHAR(255) NOT NULL UNIQUE,
+    Fecha_Vencimiento DATETIME NOT NULL,
+    Estado ENUM('ACTIVO', 'EXPIRADO', 'REVOCADO') DEFAULT 'ACTIVO',
+    FOREIGN KEY (id_client_API) REFERENCES Client_API(id) ON DELETE CASCADE
+);
+
+-- Tabla Count_Request  
+CREATE TABLE Count_Request (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    id_Token INT NOT NULL,
+    Contador INT DEFAULT 0,
+    Tipo VARCHAR(50),
+    Mes INT CHECK (Mes BETWEEN 1 AND 12),
+    FOREIGN KEY (id_Token) REFERENCES Tokens(id) ON DELETE CASCADE
+);
 --
 -- Volcado de datos para la tabla `usuarios`
 --
