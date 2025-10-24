@@ -1,6 +1,21 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 22-10-2025 a las 03:08:34
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.2.12
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Base de datos: `tienda_celulares`
@@ -69,6 +84,65 @@ INSERT INTO `celulares` (`id`, `imei`, `numero_serie`, `marca`, `modelo`, `proce
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `client_api`
+--
+
+CREATE TABLE `client_api` (
+  `id` int(11) NOT NULL,
+  `ruc` varchar(20) NOT NULL,
+  `razon_social` varchar(150) NOT NULL,
+  `telefono` varchar(20) DEFAULT NULL,
+  `correo` varchar(100) DEFAULT NULL,
+  `fecha_registro` datetime DEFAULT current_timestamp(),
+  `estado` tinyint(4) DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `client_api`
+--
+
+INSERT INTO `client_api` (`id`, `ruc`, `razon_social`, `telefono`, `correo`, `fecha_registro`, `estado`) VALUES
+(1, 'e1323', '213131aaa', '2133', '1232@sss.com', '2025-10-01 18:54:14', 1),
+(2, '20523682947', 'delcomp sac', '969696969', 'info@delcomp.pe', '2025-10-03 08:51:16', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `count_request`
+--
+
+CREATE TABLE `count_request` (
+  `id` int(11) NOT NULL,
+  `id_token` int(11) NOT NULL,
+  `tipo` varchar(50) DEFAULT NULL,
+  `fecha` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tokens_api`
+--
+
+CREATE TABLE `tokens_api` (
+  `id` int(11) NOT NULL,
+  `id_client_api` int(11) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `fecha_registro` datetime DEFAULT current_timestamp(),
+  `estado` tinyint(4) DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `tokens_api`
+--
+
+INSERT INTO `tokens_api` (`id`, `id_client_api`, `token`, `fecha_registro`, `estado`) VALUES
+(1, 1, '1e81e0a34b4c38a2fc09b45d6efb39c79c70f7a443a87a8cd235d18ffe140de2', '2025-10-01 18:54:27', 1),
+(2, 1, 'cb28ba9fba1e4cd7871ae8df39cf9756f595190efb3371b312acf050ab40fe9a', '2025-10-03 08:50:27', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `usuarios`
 --
 
@@ -82,38 +156,6 @@ CREATE TABLE `usuarios` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
-
---TABLAS ADICIONALES PARA LAS APIS --
--- Tabla Client_API
-CREATE TABLE Client_API (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    RUC VARCHAR(11) NOT NULL,
-    Razon_Social VARCHAR(255) NOT NULL,
-    Telefono VARCHAR(20),
-    Correo VARCHAR(100),
-    Fecha_Registro DATE NOT NULL,
-    Estado ENUM('ACTIVO', 'INACTIVO') DEFAULT 'ACTIVO'
-);
-
--- Tabla Tokens
-CREATE TABLE Tokens (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    id_client_API INT NOT NULL,
-    Token VARCHAR(255) NOT NULL UNIQUE,
-    Fecha_Vencimiento DATETIME NOT NULL,
-    Estado ENUM('ACTIVO', 'EXPIRADO', 'REVOCADO') DEFAULT 'ACTIVO',
-    FOREIGN KEY (id_client_API) REFERENCES Client_API(id) ON DELETE CASCADE
-);
-
--- Tabla Count_Request  
-CREATE TABLE Count_Request (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    id_Token INT NOT NULL,
-    Contador INT DEFAULT 0,
-    Tipo VARCHAR(50),
-    Mes INT CHECK (Mes BETWEEN 1 AND 12),
-    FOREIGN KEY (id_Token) REFERENCES Tokens(id) ON DELETE CASCADE
-);
 --
 -- Volcado de datos para la tabla `usuarios`
 --
@@ -135,6 +177,26 @@ ALTER TABLE `celulares`
   ADD UNIQUE KEY `numero_serie` (`numero_serie`);
 
 --
+-- Indices de la tabla `client_api`
+--
+ALTER TABLE `client_api`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `count_request`
+--
+ALTER TABLE `count_request`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_token` (`id_token`);
+
+--
+-- Indices de la tabla `tokens_api`
+--
+ALTER TABLE `tokens_api`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_client_api` (`id_client_api`);
+
+--
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -151,16 +213,49 @@ ALTER TABLE `celulares`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
+-- AUTO_INCREMENT de la tabla `client_api`
+--
+ALTER TABLE `client_api`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `count_request`
+--
+ALTER TABLE `count_request`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `tokens_api`
+--
+ALTER TABLE `tokens_api`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
   MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `count_request`
+--
+ALTER TABLE `count_request`
+  ADD CONSTRAINT `count_request_ibfk_1` FOREIGN KEY (`id_token`) REFERENCES `tokens_api` (`id`);
+
+--
+-- Filtros para la tabla `tokens_api`
+--
+ALTER TABLE `tokens_api`
+  ADD CONSTRAINT `tokens_api_ibfk_1` FOREIGN KEY (`id_client_api`) REFERENCES `client_api` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
 
 APIcelulares/
 │

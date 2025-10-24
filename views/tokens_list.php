@@ -1,15 +1,15 @@
-<?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-session_start();
-require_once __DIR__ . '/../config/database.php';
-if (!isset($_SESSION['user_id'])) {
-    header('Location: ' . BASE_URL . 'views/login.php');
-    exit();
-}
-// Manejar eliminación
-if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
-    require_once __DIR__ . '/../controllers/TokenApiController.php';
+    <?php
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+    session_start();
+    require_once __DIR__ . '/../config/database.php';
+    if (!isset($_SESSION['user_id'])) {
+        header('Location: ' . BASE_URL . 'views/login.php');
+        exit();
+    }
+    // Manejar eliminación
+    if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
+        require_once __DIR__ . '/../controllers/TokenApiController.php';
     $tokenApiController = new TokenApiController();
     if ($tokenApiController->borrarToken($_GET['delete'])) {
         $mensaje = "✅ Token eliminado exitosamente";

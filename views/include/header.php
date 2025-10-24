@@ -20,7 +20,9 @@
             <li><a href="<?php echo BASE_URL; ?>views/clientes_list.php"><i class="fas fa-users"></i> Ver Todos los clientes</a></li>
             <li><a href="<?php echo BASE_URL; ?>views/tokens_list.php"><i class="fas fa-key"></i> Ver Todos los tokens</a></li>
             
-           
+                  <li><a href="<?php echo BASE_URL; ?>api_cliente"><i class="fas fa-external-link-alt" class="btn btn-primary"></i > Probar API Cliente</a></li>
+                
+
             <li><a href="<?php echo BASE_URL; ?>public/index.php?action=logout"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
         </ul>
     </div>

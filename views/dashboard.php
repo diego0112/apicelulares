@@ -199,6 +199,12 @@ require_once __DIR__ . '/include/header.php';
                 <a href="<?php echo BASE_URL; ?>views/tokens_list.php">
                     <i class="fas fa-key"></i> Ver Todos los tokens
                 </a>
+          
+<a href="<?php echo BASE_URL; ?>api_cliente/" class="btn btn-primary" target="_blank">
+    <i class="fas fa-external-link-alt"></i> Probar API Cliente
+</a>
+
+
             </div>
         </div>
     </div>

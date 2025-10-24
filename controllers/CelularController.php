@@ -136,5 +136,25 @@ class CelularController {
         $resultado = $this->celularModel->getConexion()->query("SELECT COUNT(*) as total FROM celulares WHERE activo = TRUE");
         return $resultado->fetch_assoc()['total'];
     }
+    public function buscarCelulares($search)
+{
+    $search = "%" . $this->getConexion()->real_escape_string($search) . "%";
+    $query = "
+        SELECT *
+        FROM celulares
+        WHERE (imei LIKE ? OR numero_serie LIKE ? OR modelo LIKE ?)
+        AND activo = TRUE
+    ";
+    $stmt = $this->celularModel->getConexion()->prepare($query);
+    $stmt->bind_param("sss", $search, $search, $search);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+    $celulares = [];
+    while ($fila = $resultado->fetch_assoc()) {
+        $celulares[] = $fila;
+    }
+    return $celulares;
+}
+
 }
 ?>
